@@ -1,0 +1,556 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageNew.master.cs" Inherits="content_MasterPageNew" %>
+<%@ Import Namespace="System.Data" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../style/css/nobel.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../style/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../style/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />    
+    <script type="text/javascript">
+     window.history.forward();
+     function noBack() {window.history.forward();}
+    </script>
+    <title>HRIS</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+    
+    </style>
+</head>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="" class="nav-md" >
+<form id="form1" runat="server">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title text-center">
+               <img class="mns" src="dist/img/Human.png" alt="CLI" style="width:130px; height:55px; margin-top:-1px"/> 
+            </div>
+            <div class="clearfix mncf"></div>
+            <!-- sidebar menu -->
+             <% string id = function.Encrypt(Session["user_id"].ToString(), true); int cnt = 0; %>
+              <%
+                    DataTable request = notification.requestupdate(" and a.Status = 'For Approval'");
+                    DataTable man = notification.manuallogverification(" where a.status like '%verification%' and a.dtr_id is null");
+                    DataTable schedule = notification.scheduler("and status like'%for approval%'");
+                    DataTable overtime = notification.overtime(" where a.status like '%Verification%' ");
+                    DataTable workverification = notification.workverification(" where a.status like '%verification%' ");
+                    DataTable travel = notification.travel(" where a.status like '%Verification%'");
+                    DataTable undertime = notification.undertime(" where a.status like '%Verification%' ");
+                    DataTable changeshift = notification.changeshift(" where c.status like '%Verification%'");
+                    DataTable offset = notification.offset(" where a.status like'%verification%'");
+                    DataTable leave = notification.leave(" where b.status like '%verification%' ");
+                    DataTable clearance = notification.clearance(" and a.status like '%verification%'");
+                    DataTable resignation = notification.resignation(" and status like '%verification%'");
+                    int total_noti = man.Rows.Count + schedule.Rows.Count + overtime.Rows.Count + workverification.Rows.Count + travel.Rows.Count + undertime.Rows.Count + changeshift.Rows.Count + offset.Rows.Count + leave.Rows.Count + clearance.Rows.Count + resignation.Rows.Count + request.Rows.Count;
+                %>
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                <% 
+                string idd = Session["role"].ToString() == "Admin" ? "0" : Session["emp_id"].ToString();
+                DataTable dt2 = getdata.accessAdmin(idd);
+                DataRow[] dr = dt2.Select("default=0");
+
+                int total_mp = 0; DataTable Mp = new DataTable(), Vmp = new DataTable(), Hrmp = new DataTable();
+                if (idd != "0" && Session["emp_id"].ToString() != "0")
+                {
+                  Mp = notification.Mpp(idd);
+                    Vmp = notification.Vmpp(idd);
+                    Hrmp = notification.Hrmpp(idd);
+
+                    total_mp = Mp.Rows.Count + Vmp.Rows.Count + Hrmp.Rows.Count;
+                    
+                %>
+                 <li><a href="employee-dashboard"><i class="fa fa-arrow-left"></i><span>Back </span></a></li>
+             <% } %>
+
+             <% foreach (DataRow row in dr)
+                {
+                    if (row["url"].ToString().Length > 1)
+                    { %>
+                        <li><a href="<%= row["url"] %>"><i class="<%= row["icon"] %>"></i><span>
+                            <%= row["name"]%>
+                        </span></a></li>
+                    <%}
+                    else
+                    {
+                        DataRow[] tree = dt2.Select("default=" + row["id"]);
+                        %>
+                        <li class="treeview"><a><i class="<%= row["icon"] %>"></i><span>
+                                   
+                <%= row["name"]%>
+                <% if (row["name"].ToString() == "Verification" && total_noti > 0)
+                    {%>
+                <span class="badge bg-red">
+                    <%= total_noti %></span>
+                <%} else if (row["name"].ToString() == "Recruitment" && total_mp > 0)
+                    { %>
+                    <span class="label label-danger noticnt"><%= total_mp %></span>
+                    <%}  %>
+                <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <%
+                        foreach (DataRow menu in tree)
+                        {%>
+                        <li><a href="<%= menu["url"] %>">
+                        <%= menu["name"]%>
+                        <% switch (menu["name"].ToString())
+                            {
+                                case "Adjustment": if (man.Rows.Count > 0)
+                                    {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(man.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+
+                         <%case "MasterFile":%>
+                        <% if (request.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(request.Rows.Count);%></span>
+                        <%}%>
+                        <% break;%>
+                        <%case "Overtime":%>
+                        <% if (overtime.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(overtime.Rows.Count);%></span>
+                        <%}%>
+                        <% break;%>
+                        <%case "Change Schedule":%>
+                        <%if (changeshift.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%= changeshift.Rows.Count%></span>
+                        <%}%>
+                        <% break;%>
+                        <%case "Work Verification":%>
+                        <% if (workverification.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(workverification.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "OBT":%>
+                        <%if (travel.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(travel.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "Leave":%>
+                        <% if (leave.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(leave.Rows.Count);%></span>
+                        <%} %>
+                        <%break;%>
+                        <%case "Change Shift":%>
+                        <%if (changeshift.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(changeshift.Rows.Count);%></span>
+                        <%}%>
+                        <% break;%>
+                        <%case "Undertime":%>
+                        <% if (undertime.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(undertime.Rows.Count);%></span>
+                        <%}%>
+                        <% break;%>
+                        <%case "Offset":%>
+                        <% if (offset.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(offset.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "Schedule":%>
+                        <% if (schedule.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(schedule.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "Resignation":%>
+                        <% if (resignation.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">
+                            <%Response.Write(resignation.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "Clearance":%>
+                        <% if (clearance.Rows.Count > 0)
+                            {%>
+                        <span class="badge bg-green">">
+                            <%Response.Write(clearance.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                         <%case "Manpower Request":%>
+                        <% if (Mp.Rows.Count > 0)
+                        {%>
+                        <span class="label label-warning pull-right"><%Response.Write(Mp.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "Manpower Approval":%>
+                        <% if (Vmp.Rows.Count > 0)
+                        {%>
+                        <span class="label label-warning pull-right"><%Response.Write(Vmp.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+                        <%case "HR Approval":%>
+                        <% if (Hrmp.Rows.Count > 0)
+                        {%>
+                        <span class="label label-warning pull-right"><%Response.Write(Hrmp.Rows.Count);%></span>
+                        <%}%>
+                        <%break;%>
+
+                        <%} %>
+                    </a></li>
+                    <% } %>
+                </ul>
+            </li>
+            <%  
+                }
+           }
+                  
+                  
+                  
+                %>
+                    <div class="hide">
+                   
+                <li class="header">MAIN NAVIGATION</li>
+
+                <!-- <li><a href="timesheetmonitoring?user_id=<% Response.Write(id);%>">MONITORING</a></li>-->
+                 <li><a href="<%= Session["role"].ToString() == "Admin" ? "dashboard?user_id=" + id : "employee-dashboard?user_id=" + id  %>" ><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <!-- sidebar menu -->
+                <li><a href="masterfile" ><i class="fa fa-users"></i> Master File</a></li>      
+                              
+                <li>
+                    <a><i class="fa fa-clipboard"></i>DTR<span class="fa fa-chevron-down"></span></a> 
+                    <ul class="nav child_menu">
+                        <li><a href="att-logs">Attendance</a></li>
+                        <li><a href="adddtrlogs">Import FIle</a></li>
+                        <li><a href="dtrrange">Payroll Period</a></li>
+                        <li><a href="Mdtrlist">Adjusted Record</a></li>
+                    </ul>
+                </li>
+                <li><a href="deduction" ><i class="fa fa-ticket"></i> Deduction</a></li>
+                <li>
+                    <a>
+                    <i class="fa fa-edit (alias)"></i>Verification
+                    <% if (total_noti > 0)
+                       { %>
+                        <span class="badge bg-red"><% Response.Write(total_noti); %></span>
+                    <% } %>
+                    <span class="fa fa-chevron-down"></span>
+                    </a> 
+                    <ul class="nav child_menu">
+                            <li>
+                                <a href="request">MasterFile
+                                <% if (request.Rows.Count > 0){ %>
+                                    <span class="badge bg-green"><% Response.Write(request.Rows.Count); %></span>
+                                    <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="Manuallogs">Adjustment
+                                    <% if (man.Rows.Count > 0) { %>
+                                    <span class="badge bg-green"><% Response.Write(man.Rows.Count); %></span>
+                                    <% } %>
+                                </a>
+                            </li> 
+                            <li>
+                                <a href="verifyot">Overtime
+                                  <% if (overtime.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(overtime.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>     
+                            <li>
+                                <a href="vcs">Change Schedule
+                                 <% if (changeshift.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(changeshift.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>     
+                            <li>
+                                <a href="Restdayverification">Work Verification
+                                 <% if (workverification.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(workverification.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li> 
+                            <li>
+                                <a href="Travel">OBT
+                                 <% if (travel.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(travel.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="vl">Leave
+                                 <% if (leave.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(leave.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="vu">Undertime
+                                 <% if (undertime.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(undertime.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="vo">Offset
+                                 <% if (offset.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(offset.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="schedule">Schedule
+                                  <% if (schedule.Rows.Count > 0)
+                                     { %>
+                                        <span class="badge bg-green"><% Response.Write(schedule.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reslistver">Resignation
+                                 <% if (resignation.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(schedule.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="vclear">Clearance
+                                 <% if (clearance.Rows.Count > 0)
+                                    { %>
+                                    <span class="badge bg-green"><% Response.Write(schedule.Rows.Count); %></span>
+                                  <% } %>
+                                </a>
+                            </li>
+                    </ul>
+                </li>
+                <li><a href="adjustments" ><i class="fa fa-balance-scale"></i> System Adjustment</a></li>
+                <li class="hide"><a href="system_approval" ><i class="fa fa-balance-scale"></i> System Approval</a></li>
+                <li><a href="applist" ><i class="fa fa-file-text"></i> Appraisal</a></li>   
+                <li><a href="MemoList" ><i class="fa fa-bell"></i>Memo</a></li> 
+                <li><a href="archive" ><i class="fa fa-archive"></i> Archiving</a></li>    
+                <li>
+                    <a><i class="fa fa-barcode"></i>Asset Management<span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                         <li><a href="assetassign">Asset Assign</a></li>
+                         <li><a href="manageasset">Inventory</a></li>
+                         <li><a href="assetcat">Category</a></li>
+                     </ul>
+                </li>
+                <li><a href="ttos" ><i class="fa fa-flag"></i> Annualization</a></li>    
+                <li>
+                    <a><i class="fa fa-files-o"></i>Report<span class="fa fa-chevron-down"></span></a> 
+                    <ul class="nav child_menu">
+                       
+                        <li><a href="demographic">Demographic</a></li>
+                        <li><a href="att_report">Attendance Report</a></li>
+                        <li><a href="att-inout">In-Out</a></li>
+                        <%--<li><a href="control_rep">Control Report</a></li>--%>
+                        <li><a href="sss_rep">SSS Report</a></li>
+                        <li><a href="phic_rep">PHIC Report</a></li>
+                        <li><a href="hdmf_rep">HDMF Report</a></li>
+                        <%--<li><a href="wht_rep">WTX Report</a></li>--%>
+                        <li><a href="leave_rep">Leave Balances Report</a></li>
+                       <%-- <li><a href="#">Gov't Loan Report</a></li>
+                        <li><a href="#">Company Loan Report</a></li>--%>
+                        <li><a href="Loan_leadger">Loan Report</a></li>
+                          <li><a href="trail">Audit Trail</a></li>
+                       <%-- <li><a href="loan_leadger"> Loan Ledger</a></li>
+                        <li><a href="MotherList"> Other Income History</a></li>
+                        <li><a href="Mpayotherdeduction"> Other Deduction History</a></li>
+                        <li><a href="changeshifthistory"> Change Shift History</a></li>--%>
+                    </ul>
+                </li> 
+                <li>
+                    <a><i class="fa fa-search"></i>Monitoring<span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                         <li><a href="overtime">Overtime</a></li>
+                         <li><a href="manageasset">Inventory</a></li>
+                         <li><a href="assetcat">Category</a></li>
+                     </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-gear"></i>System Configuration<span class="fa fa-chevron-down"></span></a> 
+                    <ul class="nav child_menu">
+                        <li><a href="Msystemtable"> Table Set Up</a></li>
+                        <li><a href="Mshiftcode"> Shift Code Set Up</a></li>
+                        <li><a href="Mmandatorytable"> Mandatory Table</a></li>
+                        <li><a href="Motherdeduction">Deduction Set Up</a></li>
+                        <li><a href="Motherincome">Other Income Set Up</a></li>
+                        <li><a href="Mdaytype"> Day Type Set Up</a></li>
+                        <li><a href="Mtimeadjust"> Time Adjustment Setup</a></li>
+                        <li><a href="access">Employee Rights</a></li>
+                        <li><a href="allow_admin">Request Application</a></li>
+					</ul>
+                 </li>
+                 <li>
+                    <a><i class="fa fa-clipboard"></i>Payroll<span class="fa fa-chevron-down"></span></a> 
+                    <ul class="nav child_menu">
+                        <li><a href="transotherincome">Other Income</a></li>
+                        <li><a href="transotherdeduction">Other Deduction</a></li>
+                        <li><a href="procpay">Process</a></li>
+                        <li style=" display:none;"><a href="quitclaim">Quit Claim Request</a></li>
+                    </ul>
+                 </li>
+                 <li>
+                    <a><i class="fa fa-sliders"></i>Others<span class="fa fa-chevron-down"></span></a> 
+                    <ul class="nav child_menu">
+                        <li><a href="sc">Service Charge</a></li>
+                        <li><a href="tmp">13th Month Pay</a></li>
+                    </ul>
+                 </li>
+                 </div>
+                 </ul>
+                <!-- /sidebar menu -->
+             </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div id="navtog" class="nav toggle oi">
+                <a id="A1"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="files/adminprofile/<% Response.Write(Session["emp_id"].ToString()); %>.png" alt=""> <% Response.Write(Session["ngalan"].ToString()); %>
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <%  if (idd == "0" && Session["emp_id"].ToString() == "0") { %>
+                    <li><asp:LinkButton ID="lb_profile" runat="server" OnClick="clickp" Text="Profile"></asp:LinkButton></li>
+                    <% } else { %>
+                    <li><a href="employee-profile">Profile</a></li>
+                    <% } %>
+                    
+                    <li><a href="quit?key=out"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+
+              <!--Start 07/04-18-->
+                <% DataTable  dt = getdata.sys_notification("0", "0"); %>
+                <li role="presentation" class="dropdown" style=" display:inline;">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false" style="padding:20px 15px">
+                    <i class="fa fa-bell-o"></i>
+                    <% if (dt.Rows.Count > 0) { %>
+                    <span class="badge bg-green"><%= dt.Rows.Count%></span>
+                    <% } %>
+                  </a>
+                  <ul id="Ul1" class="dropdown-menu list-unstyled msg_list" style="overflow: auto; max-height:300px">
+                  <% if(dt.Rows.Count == 0) { %>
+                    <li><strong>You have 0 notification</strong></li>
+                  <% } else { %>
+                      <% foreach(DataRow row in dt.Rows) { %>
+                        <li>
+                          <a href="read-notification?key=<%= row["id"] %>">
+                            <span class="time text-muted"><%= row["sent"] %></span>
+                            <span>
+                              <span class="text-uppercase"><%= row["subject"] %></span><br />
+                              <span><%= row["content"] %></span>
+                            </span>
+                          </a>
+                        </li>
+                     <% } %> 
+                 <% } %>
+                 <li class="footer" style=" position:relative"><a href="notificationlist">See All Notifications</a></li>
+                  </ul>
+                </li>
+               <!--end 07/04-18-->
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <asp:ContentPlaceHolder id="content" runat="server">
+            </asp:ContentPlaceHolder>
+           
+        </div>
+         <div id="panelOverlay" runat="server" visible="false" class="Overlay"></div>
+    <div id="panelchangeprofile" runat="server" visible="false" class="PopUpPanel skills">
+    <asp:ImageButton ID="ImageButton3" ImageUrl="~/style/img/closeb.png"  runat="server" OnClick="close"/>
+    <h2><asp:Label ID="lbl_sign" runat="server"></asp:Label></h2>
+    <hr />
+    <ul>
+        <li>Select Profile</li>
+        <li><asp:FileUpload ID="FileUpload1" runat="server" /></li>
+
+    </ul>
+    <hr />
+    <asp:Button ID="btn_savep" runat="server" OnClick="clicksavep"   CssClass="btn btn-primary"/>
+     <asp:HiddenField ID="profid" runat="server" />
+        <!-- /page content -->
+
+        
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="style/js/custom.min.js"></script>
+    <asp:ContentPlaceHolder ID="footer" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        var url = window.location.href
+        var arr = url.split("/");
+        $("#nobel").html($('a[href="' + arr[arr.length - 1].replace("%3d", "=") + '"]').text())
+    </script>
+    <asp:HiddenField ID="key" runat="server" />
+    <asp:HiddenField ID="avatar" runat="server" />
+    <asp:GridView ID="grid_view" runat="server" Visible="false" AutoGenerateColumns="false"  CssClass="Grid">
+        <Columns>
+            <asp:BoundField DataField="formname"/>
+            <asp:BoundField DataField="remarks" />
+            <asp:BoundField DataField="icon" />
+            <asp:BoundField DataField="cnt" />
+            <asp:BoundField DataField="formtype" />
+        </Columns>
+    </asp:GridView>
+
+<asp:Panel ID="pnl_notify" runat="server" CssClass="notify">
+    <b><i class="fa fa-info-circle"></i> DISCONNECTED DEVICE</b>
+    <div>Please contact device administrator.</div>
+</asp:Panel>   
+     
+    </form>
+</body>
+</html>

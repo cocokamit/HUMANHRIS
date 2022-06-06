@@ -1,0 +1,151 @@
+﻿.danger { background:#ef6d6d !important; color: #fff !important}
+.restday {background: #16b7df !important; color: #fff !important}
+.yellow {background: #d8ce5d !important; color: #fff !important}
+.orange {background: #f39c12   !important; color: #fff !important}
+.leave {background: #00a65a !important; color: #fff !important}
+.holiday {background: #dd4b39    !important; color: #fff !important}
+.oil {background: #1d7fb7 !important; color: #fff !important}
+.oim {background: #3d8dbb !important; color: #fff !important}
+.oph {background: #106899 !important; color: #fff !important}
+
+.noticnt{    position: absolute;
+right: 5px;
+z-index: 100;
+top: 16px;}
+    
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*For CROSS Masterpage*/
+.page-title li { display:inline; padding:0 5px}     
+.page-title li a { color:#000}    
+ .page-title .title_right {
+    text-align: right;
+    font-size: 11px;
+    width: 50%;
+    float: right;
+    display: block;
+    margin: 5px 5px 0 0;
+}
+.page-title h3{margin:0}
+.x_panel {
+    border-top: 3px solid #3c8dbc !important;
+    border-radius: 3px;
+    width: 100%;
+    padding: 0 10px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+        border-top-color: rgb(230, 233, 237);
+        border-top-style: solid;
+        border-top-width: 1px;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    opacity: 1;
+    transition: all .2s ease;
+}
+
+.x-head {padding:10px 0}
+.x-head a {font-size:20px; margin-bottom:10px}
+.input-form { margin-left:-40px}
+.input-form input[type="text"], .input-form input[type="password"] {
+    padding: 6px;
+    width: 100%;
+    margin-bottom: 5px;
+    border: 1px solid #d2d6de;
+}
+.input-form li hr { margin:5px 0 8px !important}
+.input-form  li { list-style:none}
+.border-right { border-right: 1px solid #eee !important;}
+.table-bordered td a {
+    font-size: 15px;
+    padding: 0 10px 0 5px;
+}
+
+
+.no-box-shadow {box-shadow:none}
+.input-group-sm { width:50%}
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] { margin-left: 0px}
+.control-sidebar-menu > li img {border-radius: 50%;max-width: 18%;float:left;height: auto;}
+.month {padding: 70px 25px;width: 100%;background: #1abc9c;text-align: center;}
+.month ul {margin: 0;padding: 0;}
+.month ul li {color: white;font-size: 20px;text-transform: uppercase;letter-spacing: 3px;}
+.month .prev {float: left;padding-top: 10px;}
+.month .next {float: right;padding-top: 10px;}
+.weekdays {margin: 0;padding: 10px 0;background-color: #ddd;}
+.weekdays li {display: inline-block;width: 13.6%;color: #666;text-align: center;}
+.days {padding: 10px 0;background: #eee;margin: 0;}
+.days li {list-style-type: none;display: inline-block;width: 13.6%;text-align: center;margin-bottom: 5px;font-size:12px;color: #777;}
+.days li .active {padding: 5px;background: #1abc9c;color: white !important}
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+    .weekdays li, .days li {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+    .weekdays li, .days li {width: 12.5%;}
+    .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+    .weekdays li, .days li {width: 12.2%;}
+}
+.none { display:none}
+.modal {position: absolute;overflow:auto !important}
+.messages-menu .menu .active { background:#d1e9f6}
+.inline {display:inline !important}
+.todo-list a { color:#000}
+.todo-list .label { float:right; padding:5px }
+.info-box-number { overflow:hidden; text-overflow: ellipsis;white-space: nowrap;}
+.info-box-number i { font-size:12px}
+.info-box-content a { font-style:italic}
+.info-box-icon i{ margin-top:21px }
+.nav .fa {padding-top:5px}
+.main-header .navbar .nav > li > a > .label {top:12px}
+.alert {padding:0; margin-bottom:0}
+.lable {font-family:'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif}   
+.btn-out { width:82px}
+.no-padding-right { padding-right:0 !important}
+.no-padding-bottom { padding-bottom:0 !important}
+.table a { padding:0 5px}
+.table .action { padding-right:10px}
+.table-schedule { font-size:12px}
+.btn i { line-height:20px}
+.btn-right {margin:5px 0}
+.box-body-no-top { padding:0 10px 10px}
+.input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn { height:35px}
+.form-group h4{ margin:0 }
+.form-group select, .select { display:block;width:100%;background-color: white;border: 1px solid #d2d6de;padding: 0.45em 1.5em 0.5em 0.5em;  -webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;-webkit-appearance: none;-moz-appearance: none;background-image: linear-gradient(45deg, transparent 50%, gray 50%),linear-gradient(135deg, gray 50%, transparent 50%),linear-gradient(to right, #ccc, #ccc);background-position: calc(100% - 15px) calc(1em + 2px),calc(100% - 10px) calc(1em + 2px),calc(100% - 2.3em) 0.5em;background-size: 5px 5px,5px 5px,1px 0em;background-repeat: no-repeat;  }
+
+
+.alert-default 
+{
+    padding:10px;
+    color: #fff;
+    background-color: rgb(161, 200, 222);
+    border-color: rgb(153, 197, 236);
+}
+ 
+.Overlay { position:fixed; top:0px; bottom:0px; left:0px; right:0px; overflow:hidden; padding:0; margin:0; background-color:#000; filter:alpha(opacity=50); opacity:0.5; z-index:1000;}
+.PopUpPanel { width:500px; position:absolute;background-color: #fff; margin-left:-250px;  top:10%;left:50%;z-index:2001; padding:20px;-moz-box-shadow:2px 2px 3px #000000;-webkit-box-shadow:2px 2px 5px #000000;box-shadow:2px 2px 5px #000000;}
+.PopUpPanel input[type=image]{ margin:-30px;float:right;}
+

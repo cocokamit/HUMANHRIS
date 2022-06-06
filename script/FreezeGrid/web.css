@@ -1,0 +1,42 @@
+﻿.GridSchedule tr:nth-child(even) {background: #FFF}
+.GridSchedule tr:nth-child(odd) {background: #CCC}
+
+.GridViewScrollHeader TH, .GridViewScrollHeader TD {
+    padding: 10px 5px;
+    font-weight: normal;
+    white-space: nowrap;
+    
+    border: 1px solid #e6e6e6 !important;
+    background-color: #F4F4F4;
+    color: #999999;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.GridViewScrollItem TD {
+    padding: 5px;
+    white-space: nowrap;
+    border: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    /*background-color: #000;*/
+    color: #444444;
+}
+
+.GridViewScrollItemFreeze TD {
+    padding: 5px;
+    white-space: nowrap;
+    border: 1px solid #e6e6e6;
+    background-color: #FFF;
+    color: #444444;
+    line-height:34px;
+}
+
+.GridViewScrollFooterFreeze TD {
+    padding: 5px;
+    white-space: nowrap;
+    border-right: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #F4F4F4;
+    color: #444444;
+}

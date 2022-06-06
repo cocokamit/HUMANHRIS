@@ -1,0 +1,151 @@
+﻿
+
+.hd_lf{ float:left; font-family: Neo Sans; font-size:10px; font-family:BMW Type Global Pro Regular; }
+.hd_lf tr td{ text-align:right; padding-right:20px; height:12px}
+.hd_lf tr td:last-child{ text-align:left}
+
+ .amaw_3{ border:1px solid green;  border-top-left-radius:5px; border-top-right-radius:5px;   margin-top:30px;width:100%; float:left; font-family:BMW Type Global Pro Regular; }
+.amaw_3 th{ border-right:1px solid green; border-bottom:none; text-transform: uppercase; width:200px; text-align: center}
+.amaw_3  tr th:last-child{ border:none}
+.amaw_3  th div{ margin:0 auto 0 auto; text-align:center; color:White; padding:2px;background:url(../images/bb.jpg); border-radius:2px; font-size:11px; width:100px; margin-top:-20px}
+.amaw_3  tr td{  border-right:1px solid green; text-align:center}
+.amaw_3  tr td:last-child{ border:none}
+ .div_div{ height:10px; width:100%; background:url(../images/bb.jpg); float:left; margin-top:5px;margin-bottom:5px}
+       
+
+ul{ list-style: none; font-family: Neo Sans; float:right;
+    height: 74px;
+}
+ 
+* { margin: 0; padding: 0; outline: 0; } 
+body{ background:url(../images/rp.jpg); font-size:12px; font-family:BMW Type Global Pro Regular;}
+.content{margin:0 auto 0 auto;width:900px;background: #fff;margin-bottom:30px;padding:10px;}
+
+.date{font-size:11px;float:right; clear:both; margin-top:-5px;}
+.rs{float:right; clear:both; width:150px}
+
+
+.table tr th{border-bottom:2px solid black; padding:6px; border-top:none;border-left:none;border-right:none;}
+.table tr{ border:none}table tr td{padding:3px; border: none }  
+.table{ border-style: none;
+	border-color: inherit;
+	border-width: medium;
+	text-align:left;font-size:12px; border-collapse:collapse; }
+.table tr th{border-bottom:2px solid black; padding:6px; border-top:none;border-left:none;border-right:none;}
+.table tr{ border:none}table tr td{padding:3px; border: none }  
+
+.grid,.cusIn{margin:0px auto 0px auto;}
+
+.ib_print{ margin:10px; float:right}
+.ib_back{ margin:6px; float:left}
+	
+.rg{ height:80px; margin-top:-40px;}
+.headhead{background:#fff url(../images/headhead.jpg) bottom repeat-x; height:34px; width:100%}
+.vg{ float:right; color: Maroon; font-size:16px;  font-weight:bold}
+.vgg{ float:right; clear:both; font-weight:bold; margin-top:-5px;}
+
+.grid { width:98%; border:none; border-collapse: collapse; }
+.grid tr th{ border:none; text-align:left; border-bottom:1px solid gray}
+.grid tr td{border:none; padding-top:3px;}
+
+ 
+
+fieldset { padding :15px; font-size:13px;margin:0 auto 0 auto; margin-top:20px;  width:94%;}
+fieldset legend{ font-size:14px; padding:2px; font-weight:bold} 
+input[type=text] { border:none; border-bottom:1px solid gray; width:100%; font-size:11px;}
+h3{ margin-left:8px; font-size:15px}
+ 
+.marksss div,.marks div{ border:1px  dashed gray; padding:5px; font-size:11px}
+
+.marks { width:52%; float:right}
+.marksss { width:100%; float:left}
+.tbfinance{width:46%; }
+
+.calendar{ padding:10px; position: absolute;top: 45%;left: 50%;border: 1px solid transparent;width: 311px;height:auto;margin-left: -160px;margin-top: -150px;z-index:100;background:white;border-radius:3px;box-shadow:0px 1px 7px -1px;}
+.calendar select{ float:right; border:none; width:105px; margin-bottom:5px;}
+.cal{border: 1px solid transparent}
+.sav{  width:100%;	height:28px;margin-top:5px;color:#6a6b69;border:none;cursor:pointer;border-radius:4px;font-size: 12px;border:1px solid silver;}
+.sav:hover{color:#fff;border:none;cursor:pointer;font-size: 12px;background:#8ec124;border:1px solid #6d8e0c}
+
+ 
+ .calendar1{
+              	position: absolute;
+	            top: 60%;
+	            left: 50%;
+	            border: 1px solid transparent;
+             width: 240px;height:34px;
+             margin-left: -120px;margin-top: -130px;
+             z-index:100;background:white;
+             border-radius:3px;box-shadow:0px 1px 7px -1px;}
+             
+.calendar1 select{ float:right;  border:none; width:105px; margin-bottom:5px;}
+ 
+.mounth select 
+{	
+	
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   }
+   
+   .mounth
+   {   	
+   	position: absolute;
+	top: 40%;
+	left: 50%;
+	border: 1px solid transparent;
+ 
+	margin-left: -120px;
+	margin-top: -15px;
+	z-index:100;
+	
+   width: 240px;
+   height: 34px;
+   overflow: hidden;
+   background: url(../images/down_arrow_select.jpg) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   }
+
+
+.styled-select select 
+{	
+	
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   }
+   
+   .styled-select 
+   {
+   	
+   	position: absolute;
+	top: 50%;
+	left: 50%;
+	border: 1px solid transparent;
+ 
+	margin-left: -120px;
+	margin-top: -25px;
+	z-index:100;
+	
+   width: 240px;
+   height: 34px;
+   overflow: hidden;
+   background: url(../images/down_arrow_select.jpg) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   }
+
+
+
+ 

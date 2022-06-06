@@ -1,0 +1,1121 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="site.master.cs" Inherits="content_site" %>
+<%@ Import Namespace="System.Data" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="icon" type="image/png" href="../dist/img/favicon.png"/>
+    <link rel="stylesheet" href="../vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../dist/css/base.css">
+    <link rel="stylesheet" href="../dist/css/custom.css" />
+    <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+    <style type="text/css">
+ .nav--checkbox {
+	 display: none;
+}
+ .nav--button {
+	 position: fixed;
+	 bottom: 50px;
+	 right: 20px;
+	 height: 70px;
+	 width: 70px;
+	 background-color: crimson;
+	 border-radius: 50%;
+	 box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+	 z-index: 666;
+	 transition: all 500ms cubic-bezier(0.6, -0.5, 0.4, 1.5);
+}
+ .nav--button span {
+	 position: relative;
+	 display: inline-block;
+	 top: 11px;
+	 color:White;
+	 left: 50%;
+	 transform: translateX(-50%);
+}
+ .nav--button span::after, .nav--button span::before {
+	 content: "";
+	 position: absolute;
+	 left: 0;
+	 display: inherit;
+	 height: inherit;
+	 width: inherit;
+	 background-color: #fff;
+}
+ .nav--button span::before {
+	 top: -5px;
+}
+ .nav--button span::after {
+	 top: 5px;
+}
+ .nav--small {
+	 position: fixed;
+	 bottom: 65px;
+	 right: 35px;
+	 height: 40px;  
+	 width: 40px;
+	 box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+	 border-radius: 50%;
+	 transition: all 500ms cubic-bezier(0.6, -0.5, 0.4, 1.5);
+	 z-index: 1;
+}
+ .nav--small a {
+	 position: relative;
+	 display: block;
+	 height: inherit;
+	 width: inherit;
+	 border-radius: inherit;
+	 text-decoration: none;
+	 color: white;
+}
+ .nav--small a .aligners {
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 font-size: 15px;
+}
+ .nav--btn-1 {
+	 background-color: #2E4C12 ;
+}
+ .nav--btn-2 {
+	 background-color: #2E4C12 ;
+	 transition-delay: 50ms;
+}
+ .nav--btn-3 {
+	 background-color:  #2E4C12;
+	 transition-delay: 100ms;
+}
+ .nav--checkbox:checked ~ .nav--btn-1 {
+	 bottom: 135px;
+}
+ .nav--checkbox:checked ~ .nav--btn-2 {
+	 bottom: 135px;
+	 right: 135px;
+}
+ .nav--checkbox:checked ~ .nav--btn-3 {
+	 bottom: 135px;
+	 right: 180px;
+}
+ .nav--checkbox:checked ~ .nav--button {
+	 width: 200px;
+	 border-radius: 20%;
+}
+ 
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+        <input id="hdId" type="hidden" />
+<input type="text" value="" id="hdpassword" style="display:none" />
+<input type="checkbox" class="nav--checkbox" id="nav-toggle" onclick="asd(this)" >
+
+<label for="nav-toggle" class="nav--button">
+  <span><div id="logotime"><i class="fa fa-clock-o" style="font-size:xxx-large;"></i></div> <div id="servertimer" style="display:none;">Server Time:<div id="clock"></div></div></span>
+</label>
+
+
+<div class="nav--small nav--btn-1">
+  <a href="javascript:getlogs()"><div class="aligners">Logs</div></a>
+</div>
+
+<div class="nav--small nav--btn-2">
+  <a href="javascript:button5()"><div class="aligners">Out</div></a>
+</div>
+
+<div class="nav--small nav--btn-3" >
+  <a href="javascript:button5()" ><div class="aligners">In</div></a>
+</div>
+
+<p id="demo"></p>
+  <input id="lbempid" style="display:none;" value='<%= Session["emp_id"].ToString() %>' />
+    <div id="Div1"  class="modal fade in" style=" position:fixed;">
+        <div class="modal-dialog" style="width: 300px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <input type="button" id="Button3" onclick="button3()" class="close" aria-hidden="true" value="&times;" />
+                       &nbsp;</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="form-group">
+                        <div class="row" style="display:none">
+                            <div class="col-md-12">
+                                Device Info:
+                            </div>
+                        </div>
+                         <div class="row" style="display:none">
+                            <div class="col-md-4">
+                                BrowserName:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" readonly="readonly" class="form-control" id="browsernamee" />
+                            </div>
+                        </div>
+                        <div class="row" style="display:none">
+                            <div class="col-md-4">
+                                Version:
+                            </div>
+                            <div class="col-md-8">
+                                
+                                <input type="text" readonly="readonly" class="form-control" id="versione" />
+                            </div>
+                        </div>
+                        <div class="row" style="display:none">
+                            <div class="col-md-4">
+                                platform:
+                            </div>
+                            <div class="col-md-8">
+                                
+                                <input type="text" readonly="readonly" class="form-control" id="platforme" />
+                            </div>
+                        </div>
+                        <div class="row" style="display:none">
+                            <div class="col-md-4">
+                                Device:
+                            </div>
+                            <div class="col-md-8">
+                                
+                                <input type="text" readonly="readonly" class="form-control" id="devicee" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        
+                                Location:    
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-12">
+                                    
+                                <input type="button" id="btnGMap" value="Map" onclick="locationer()" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-8">
+                                  
+                                <input type="text" readonly="readonly" class="form-control" id="latitudee" />
+                                  
+                                <input type="text" readonly="readonly" class="form-control" id="longitudee" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Time:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" readonly="readonly" class="form-control" id="timee" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                Enter Password :
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input id="txtpassworder" class="form-control" type="password" value=""/> 
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-12">
+                               
+                                <input type="button" class="btn btn-success pull-right" id="btnconfirm" onclick="onconfirm()" value="Confirm" />
+                            </div>
+                        </div>
+                       </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <div id="Div2"  class="modal fade in" style=" position:fixed;">
+        <div class="modal-dialog" style="width: 300px;" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <input type="button" id="Button1" onclick="button3()" class="close" aria-hidden="true" value="&times;" />
+                       &nbsp;</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="tblItems" class="table" style="width: 100%" cellpadding="0" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                           Attendance Logs <%=DateTime.Now.ToShortDateString() %>
+                                                        </th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                              
+                                            </table>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <form id="form1" runat="server">
+    <div class="wrapper">
+      <header class="main-header">
+       <a href="#" class="logo">
+          <span class="logo-mini"><img src="dist/img/favicon.png" width="50px" /></span>
+          <span class="logo-lg"> <img class="mns" src="dist/img/Human.png" alt="CLI" style="width:140px; margin-top:1px; height:50px"/> </span>
+        </a>
+        <nav class="navbar navbar-static-top">
+          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="navbar-custom-menu ">
+           
+            <ul class="nav navbar-nav">
+             <li class="pull-right hidden   ">
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>
+             <!-- User Account: style can be found in dropdown.less -->
+
+              <li class="dropdown user user-menu  pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="files/profile/<%= Session["emp_id"].ToString() %>.png" class="user-image" onerror="this.onerror=null;this.src='files/profile/0.png'" alt="" onError="this.onerror=null;this.src='files/profile/0.png'"><%--width="20px" height="20px"--%>
+                  <span class="hidden-xs"><%= Session["ngalan"].ToString() %></span>
+                </a>
+                <%
+					string empID = Request.QueryString["oic"] == null ? Session["emp_id"].ToString() : Request.QueryString["key"].ToString();
+                    DataTable leave = notification.leave(" where b.status like '%for approval%' and a.approver_id=" + empID + " and f.under_id=" + empID + " and f.herarchy <> 0 ");
+                    DataTable meal = notification.mealallowance(" where a.status like '%for approval%'  and a.approver_id=" + empID + " and d.under_id=" + empID + " and d.herarchy <> 0 ");
+                    DataTable schedule = notification.schedule(" where a.[status] like '%for approval%' and a.approver_id=" + empID + " and f.under_id=" + empID + " ");
+                    DataTable overtime = notification.overtime(" where a.status like '%for approval%'  and a.approver_id=" + empID + " and d.under_id=" + empID + " and d.herarchy <> 0 ");
+                    DataTable man = notification.manuallogverification(" where a.status like '%for approval%' and a.approver_id=" + empID + " and d.under_id=" + empID + " and d.herarchy <> 0");
+                    DataTable preot = notification.preot(" where a.Status='For Approval' and b.under_id = " + empID + " ");
+                    DataTable workverification = notification.workverification(" where a.status like '%for approval%'  and a.approver_id=" + empID + " and d.under_id=" + empID + " and d.herarchy <> 0");
+                    DataTable undertime = notification.undertime(" where a.status like '%for approval%'  and a.approver_id=" + empID + " and d.under_id=" + empID + " and d.herarchy <> 0");
+                    DataTable travel = notification.travel(" where a.status like '%for approval%' and a.approver_id=" + empID + " and d.under_id=" + empID + " and d.herarchy <> 0");
+                    DataTable changeshift = notification.changeshift("where c.status like '%for approval%'  and c.approver_id=" + empID + " and a.herarchy<>0");
+                    DataTable offset = notification.offset("where a.status like'%for approval%' and b.under_id=" + empID + " ");
+                    DataTable clearance = notification.clearance(" and a.status like'%for approval%' and b.under_id=" + empID + "");
+                    DataTable resignation = notification.resignation(" and status like'%for approval%' and nextapproverid=" + empID + "");
+                    int total_noti = schedule.Rows.Count + man.Rows.Count + overtime.Rows.Count + workverification.Rows.Count + travel.Rows.Count + undertime.Rows.Count + changeshift.Rows.Count + offset.Rows.Count + leave.Rows.Count + clearance.Rows.Count + resignation.Rows.Count + meal.Rows.Count;
+               
+                       int total_mp = 0; DataTable Mp = new DataTable(), Vmp = new DataTable(), Hrmp = new DataTable();
+
+                    Mp = notification.Mpp(empID);
+                    Vmp = notification.Vmpp(empID);
+                    Hrmp = notification.Hrmpp(empID);
+
+                    total_mp = Mp.Rows.Count + Vmp.Rows.Count + Hrmp.Rows.Count;
+                %>
+                 <% DataTable dtemp = getdata.empsearch("", Session["emp_id"].ToString());
+                    if (dtemp.Rows.Count > 0)
+                    {
+                        lbl_department.Text =  dtemp.Rows[0]["department"].ToString();
+                        lbl_position.Text =  dtemp.Rows[0]["position"].ToString();
+                        lbl_phn.Text =  dtemp.Rows[0]["phicnumber"].ToString().Replace("-", "").Replace(" ", "");
+                        lbl_sssno.Text =  dtemp.Rows[0]["sssnumber"].ToString().Replace("-", "").Replace(" ", "");
+                        lbl_hdmfno.Text =  dtemp.Rows[0]["hdmfnumber"].ToString().Replace("-", "").Replace(" ", "");
+                        lbl_tin.Text = dtemp.Rows[0]["tin"].ToString().Replace("-", "").Replace(" ", "");
+                    }
+                  %>
+              
+                   <ul class="dropdown-menu">
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div style="margin:0 auto">
+                      <a href="quit?key=out" class="btn btn-default btn-flat btn-out" style="width: 100%;">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Approver-->
+              <% DataTable approver = getdata.approver(Session["emp_id"].ToString()); %>
+              <%--<% if(approver.Rows.Count > 0) { %>--%>
+              <li class="pull-right">
+                <a href="#" data-toggle="control-sidebar"><i class="fa fa-server"></i></a>
+              </li>
+              <%--<% } %>--%>
+              
+              <!-- Messages-->
+              <% string account = Session["emp_id"].ToString(); %>
+              <% DataTable dt = getdata.notification(account); %>
+              <li class="dropdown messages-menu  pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success"><%= dt.Rows.Count == 0 ? "" : dt.Rows[0]["cnt"].ToString()%></span>
+                </a>
+                <ul class="dropdown-menu hid">
+                  <li class="header">You have <%= dt.Rows.Count %> messages</li>
+                  <li class="<%= dt.Rows.Count == 0 ? "hidden" : "" %>">
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        <% foreach (DataRow row in dt.Rows){ %>
+                          <li <%= row["rd"].ToString() == "0" ? "class='active'" : "" %>><!-- start message -->
+                            <a href="KIOSK_memo?user_id=<%= Session["user_id"] %>&not=<%= row["id"]%>">
+                              <b><%= row["memo_from"]%></b>
+                              <small class=" pull-right"><i class="fa fa-clock-o"></i> <%= row["date_input"]%></small>
+                              <p><%= row["memo_subject"].ToString()%></p>
+                            </a>
+                          </li>
+                      <% } %>
+                      <!-- end message -->
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="KIOSK_memo">See All Messages</a></li>
+                </ul>
+              </li>
+
+                <%  dt = getdata.sys_notification(account,"0"); %>
+              <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu  pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning"><%= dt.Rows.Count == 0 ? "" : dt.Rows.Count.ToString() %></span>
+                </a>
+                <ul class="dropdown-menu hid">
+                  <li class="header">You have <%= dt.Rows.Count %> notifications</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                       <% foreach(DataRow row in dt.Rows) { %>
+                      <li>
+                          <a href="<%= row["url"] %>?key=<%= row["key"] %>&nt=<%= row["id"] %>">
+                            <p class="pull-right"><%= row["sent"] %></p>
+                            <b><%= row["subject"] %></b>
+                            <p class="info-box-text text-muted text-sm" style="width:100%"><%= row["content"] %></p>
+                             <%DataTable db = dbhelper.getdata("update sys_notification set status = '1' where id = " + dt.Rows[0]["id"] + ""); %>
+                        </a>
+                      </li>
+                        <% } %> 
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+                             <% // here oh  %>
+             <% 
+                 DataTable d = dbhelper.getdata("Select a.user_id,b.* from nobel_userRight a left join nobel_route b on b.id=a.route_Id where b.system=2 and a.user_id=" + Session["emp_id"].ToString() + " and len(b.url)>1 order by a.seqs");
+                 //DataTable d = getdata.accessAdmin(Session["emp_id"].ToString());
+                DataRow[] f = d.Select();
+                if (f.Count() > 0 && Session["emp_id"].ToString()!="0")
+                {%>
+                <li class="dropdown messages-menu  pull-right">
+                    <a href="<%= f[0]["url"]%>">
+                      <i class="fa fa-lock"></i>
+                      <span class="label label-warning"><%=  total_mp == 0 ? "" : total_mp.ToString()%></span>
+                    </a>
+                </li>
+                <%} %>
+                <% // here oh / %>
+                
+                
+                <%//BTK 11-11-19 %>
+                <% 
+                    DataTable oic = dbhelper.getdata("select * from approval_OIC where oic=" + Session["emp_id"].ToString() + " and [status]=0");
+                    
+                    if (oic.Rows.Count > 0)
+                    {
+                        string empID_ = oic.Rows[0]["realApprover"].ToString();
+                        DataTable man_ = notification.manuallogverification(" and a.status like '%for approval%' and a.approver_id=" + empID_ + " ");
+                        DataTable preot_ = notification.preot(" where a.Status='For Approval' and a.ApproverId = " + empID + "");
+                        DataTable overtime_ = notification.overtime(" where  a.status like '%for approval%' and a.approver_id=" + empID_ + "  ");
+                        DataTable workverification_ = notification.workverification(" where a.status like '%for approval%'  and a.approver_id=" + empID_ + "");
+                        DataTable travel_ = notification.travel(" where a.status like '%for approval%' and a.approver_id=" + empID + "");
+                        DataTable undertime_ = notification.undertime(" where a.status like '%for approval%'  and a.approver_id=" + empID_ + " ");
+                        DataTable changeshift_ = notification.changeshift("where c.status like '%for approval%' and  c.approver_id=" + empID_ + "");
+                        DataTable offset_ = notification.offset("where a.status like'%for approval%' and a.aproverid=" + empID_ + " ");
+                        DataTable leave_ = notification.leave(" where b.status like '%for approval%' and a.approver_id=" + empID_ + " ");
+                        DataTable clearance_ = notification.clearance(" and a.status like'%for approval%' and a.nextapproverid=" + empID_ + "");
+                        DataTable resignation_ = notification.resignation(" and status like'%for approval%' and nextapproverid=" + empID_ + "");
+                        DataTable schedule_ = notification.schedule("a.status like'%for approval%' and a.approver_id=" + empID_ + " and  f.under_id=" + empID_);
+                        int total_noti_ = schedule_.Rows.Count + man_.Rows.Count + overtime_.Rows.Count + workverification_.Rows.Count + travel_.Rows.Count + undertime_.Rows.Count + changeshift_.Rows.Count + offset_.Rows.Count + leave_.Rows.Count + clearance_.Rows.Count + resignation_.Rows.Count + preot_.Rows.Count;
+
+                         %>
+                         <li class="dropdown messages-menu  pull-right">
+                            <a href="al?oic=true&key=<%= oic.Rows[0]["realApprover"].ToString() %>">
+                              <i class="fa fa-share"></i>
+                               <span class="label label-danger <%= total_noti_== 0 ? "none" : "" %>"><%= total_noti_ %></span>
+                            </a>
+                         </li>
+                         <%
+                    }
+                %>
+
+             
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+     <aside class="main-sidebar">
+       <section class="sidebar">
+        <% 
+            string oicID = Request.QueryString["oic"] == null ? Session["user_id"].ToString() : oic.Rows[0]["realApprover"].ToString(); 
+            string oicVal = Request.QueryString["oic"] == null ? "0" : "34";
+            bool oicBool = Request.QueryString["oic"] == null ? false : true;
+        %>
+            <ul id="sidebar_menu" class="sidebar-menu" data-widget="tree">
+            <% if(oicBool) { %>
+                <li><a href="employee-dashboard"><i class="fa fa-arrow-left"></i> <span>Back</span></a></li>
+            <% } %>
+            
+             <%
+                dt = getdata.access(oicID, 1);
+                DataRow[] dr = dt.Select("default=" + oicVal);
+                foreach (DataRow row in dr)
+                {
+                    if (row["url"].ToString().Length > 1)
+                     {
+                        if (oicBool) { 
+                            
+                      %>
+                      <li>
+                                        <a href="<%= row["url"] %>?oic=true&key=<%= oicID  %>">
+                                            <i class="fa fa-circle-o"></i> 
+                                            <span><%= row["route"]%></span>
+                                            <%switch (row["route"].ToString())
+                                              {
+                                                  case "Leave": if (leave.Rows.Count > 0)
+                                                      {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(leave.Rows.Count);%></span>
+                                                     <%}%>
+                                                     <%break;%>
+                                                     <%case "Pre-OverTime":%>
+                                                     <% if (preot.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(preot.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Over Time":%>
+                                                     <% if (overtime.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(overtime.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "OT Meal":%>
+                                                     <% if (meal.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(meal.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Schedule":%>
+                                                         <%if (schedule.Rows.Count > 0)
+                                                           {%>
+                                                           <span class="label label-warning pull-right"><%= schedule.Rows.Count%></span>
+                                                         <%}%>
+                                                     <% break;%>
+                                                     <%case "Time Adjustment":%>
+                                                      <% if (man.Rows.Count > 0)
+                                                         {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(man.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Work Verification":%>
+                                                       <%if (workverification.Rows.Count > 0)
+                                                         {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(workverification.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Undertime":%>
+                                                     <% if (undertime.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(undertime.Rows.Count);%></span>
+                                                       <%} %>
+                                                     <%break;%>
+                                                     <%case "Change Shift":%>
+                                                     <%if (changeshift.Rows.Count > 0)
+                                                       {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(changeshift.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Travel Approval":%>
+                                                     <% if (travel.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(travel.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Offset":%>
+                                                     <% if (offset.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(offset.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Resignation":%>
+                                                     <% if (resignation.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(resignation.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Clearance":%>
+                                                     <% if (clearance.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning"><%Response.Write(clearance.Rows.Count);%></span>
+                                                      <%}%>
+                                                     <%break;%>
+                                            <%} %>
+                                        </a>
+                                    </li>
+                      <%
+                        
+                        }
+                        else
+                        { 
+                     %>
+                        <li>
+                            <a href="<%= row["url"] %>">
+                                <i class="<%= row["icon"] %>"></i>
+                                 <span>
+                                     <%= row["route"]%>
+                                 </span>
+                            </a>
+                        </li>
+                    <%}
+                }
+                    else
+                    {
+                        string oi = row["id"].ToString();
+                        DataRow[] tree = dt.Select("default=" + row["id"]);
+                       %>
+                            <li class="treeview">
+                              <a href="#">
+                                <i class="<%= row["icon"] %>"></i>
+                                   <span>
+                                     <%= row["route"]%>
+                                     <% if (row["route"].ToString() == "Approval" && total_noti > 0) {%>
+                                        <span class="label label-danger noticnt"><%= total_noti %></span>
+                                     <%}
+                                      else if (row["route"].ToString() == "Recruitment" && total_mp > 0)
+                                        { %>
+                                        <span class="label label-danger noticnt"><%= total_mp %></span>
+                                        <%} %>
+                                 </span>
+                                <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                              </a>
+                                          <ul class="treeview-menu">
+                                <%
+                                foreach (DataRow menu in tree)
+                                {%>
+                                       <li>
+                                        <a href="<%= menu["url"] %>">
+                                            <i class="fa fa-circle-o"></i> 
+                                            <span><%= menu["route"]%></span>
+                                            <%switch (menu["route"].ToString())
+                                               {
+                                                   case "Leave": if (leave.Rows.Count > 0)
+                                                       {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(leave.Rows.Count);%></span>
+                                                     <%}%>
+                                                     <%break;%>
+                                                     <%case "Pre-OverTime":%>
+                                                     <% if (preot.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(preot.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Over Time":%>
+                                                     <% if (overtime.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(overtime.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "OT Meal":%>
+                                                     <% if (meal.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(meal.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Schedule":%>
+                                                         <%if ( schedule.Rows.Count > 0) {%>
+                                                           <span class="label label-warning pull-right"><%= schedule.Rows.Count%></span>
+                                                         <%}%>
+                                                     <% break;%>
+                                                     <%case "Time Adjustment":%>
+                                                      <% if (man.Rows.Count > 0)
+                                                         {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(man.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Work Verification":%>
+                                                       <%if (workverification.Rows.Count > 0)
+                                                         {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(workverification.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Undertime":%>
+                                                     <% if (undertime.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(undertime.Rows.Count);%></span>
+                                                       <%} %>
+                                                     <%break;%>
+                                                     <%case "Change Shift":%>
+                                                     <%if (changeshift.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(changeshift.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Travel Approval":%>
+                                                     <% if (travel.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(travel.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <% break;%>
+                                                     <%case "Offset":%>
+                                                     <% if (offset.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(offset.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Resignation":%>
+                                                     <% if (resignation.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(resignation.Rows.Count);%></span>
+                                                       <%}%>
+                                                     <%break;%>
+                                                     <%case "Clearance":%>
+                                                     <% if (clearance.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(clearance.Rows.Count);%></span>
+                                                      <%}%>
+                                                     <%break;%>
+                                                      <%case "Manpower Request":%>
+                                                     <% if (Mp.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(Mp.Rows.Count);%></span>
+                                                      <%}%>
+                                                     <%break;%>
+                                                     <%case "Manpower Approval":%>
+                                                     <% if (Vmp.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(Vmp.Rows.Count);%></span>
+                                                      <%}%>
+                                                     <%break;%>
+                                                     <%case "HR Approval":%>
+                                                     <% if (Hrmp.Rows.Count > 0)
+                                                        {%>
+                                                       <span class="label label-warning pull-right"><%Response.Write(Hrmp.Rows.Count);%></span>
+                                                      <%}%>
+                                                     <%break;%>
+                                            <%} %>
+                                        </a>
+                                    </li>
+                                <% } %>
+                              </ul>
+                            </li>
+                        <%  
+                    }
+                }
+                
+            %>
+             <% if(oicBool==false) { %>
+                 <li><a href="cp"><i class="fa fa-clipboard"></i> <span>Change Password</span></a></li>
+             <% } %>
+            </ul>
+        </section>
+     </aside>
+ 
+      <div class="content-wrapper">
+        <asp:ContentPlaceHolder id="content" runat="server">
+        </asp:ContentPlaceHolder>
+      </div>
+
+         <aside class="control-sidebar control-sidebar-dark">
+  
+      <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li class="active"><a href="#control-sidebar-main-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-info-circle"></i></a></li>
+      <% if(approver.Rows.Count > 0) { %> 
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+      <% } %>
+    </ul>
+   
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="control-sidebar-main-tab">
+        <h3 class="control-sidebar-heading no-margin">Profile</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-map-marker bg-red"></i>
+              <div class="menu-info">
+                <p>Position</p>
+                <h4 class="control-sidebar-subheading"><asp:Label ID="lbl_position" runat="server" ForeColor="#3c8dbc"></asp:Label></h4>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-sitemap bg-yellow"></i>
+              <div class="menu-info">
+                <p>Department</p>
+                <h4 class="control-sidebar-subheading"><asp:Label ID="lbl_department" runat="server" ForeColor="#3c8dbc"></asp:Label></h4>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-medkit bg-light-blue"></i>
+              <div class="menu-info">
+                <p>PHIC Number</p>
+                <h4 class="control-sidebar-subheading"><asp:Label ID="lbl_phn"   runat="server" ForeColor="#3c8dbc"></asp:Label></h4>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-shield bg-green"></i>
+              <div class="menu-info">
+                <p>SSS Number</p>
+                <h4 class="control-sidebar-subheading"><asp:Label ID="lbl_sssno"  runat="server" ForeColor="#3c8dbc"></asp:Label></h4>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-heartbeat bg-gray"></i>
+              <div class="menu-info">
+                <p>HDMF Number</p>
+                <h4 class="control-sidebar-subheading"><asp:Label ID="lbl_hdmfno"  runat="server" ForeColor="#3c8dbc"></asp:Label></h4>
+              </div>
+            </a>
+          </li>
+           <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-legal bg-blue"></i>
+              <div class="menu-info">
+                <p>TIN</p>
+                <h4 class="control-sidebar-subheading"><asp:Label ID="lbl_tin"  runat="server" ForeColor="#3c8dbc"></asp:Label></h4>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+        
+        <h3 class="control-sidebar-heading  no-margin">Scheduler</h3>
+        <ul class="control-sidebar-menu">
+            <%  DataTable dtsched = getdata.showScheduler(Session["emp_id"].ToString());
+                foreach (DataRow drschedlist in dtsched.Rows)
+            {%>
+              <li>
+                <a href="javascript:void(0)">
+                    <%--<img src="files/profile/<%= drappoverlist["approver"] %>.png" onerror="this.onerror=null;this.src='files/profile/BackUp/0.png'" alt="User Image">--%>
+                  <h4 class="control-sidebar-subheading"><i class="fa fa-circle" style=" font-size:8px"></i><%Response.Write(" " + drschedlist["approver"].ToString()); %></h4>
+                </a>
+              </li>
+          <%} %>
+        </ul>
+        
+        <h3 class="control-sidebar-heading  no-margin">Approver</h3>
+        <ul class="control-sidebar-menu">
+
+        <%  string queryy ="select b.lastname+', '+ b.firstname+' '+b.middlename e_name, * from approver a " +
+                       "left join memployee b on a.under_id=b.id " +
+                       "where a.emp_id=" + Session["emp_id"].ToString() + " and a.under_id <> " + Session["emp_id"].ToString() + " and a.status is null and a.herarchy <>0 order by a.herarchy asc ";
+            DataTable dtapp = dbhelper.getdata(queryy);
+            foreach (DataRow drappoverlist in dtapp.Rows)
+            {%>
+              <li>
+                <a href="javascript:void(0)">
+                  <h4 class="control-sidebar-subheading"><i class="fa fa-circle" style=" font-size:8px"></i><%Response.Write(" "+drappoverlist["e_name"].ToString()); %></h4>
+                </a>
+              </li>
+          <%} %>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+      </div>
+ 
+      <% if(approver.Rows.Count > 0) { %> 
+      <% dt = getdata.member(Session["emp_id"].ToString()); %>
+          <div class="tab-pane" id="control-sidebar-home-tab">
+            <ul class="control-sidebar-menu">
+             
+              <% foreach (DataRow row in dt.Rows) {%>
+               <li>
+                <a href="javascript:void(0)">
+                    <img src="files/profile/<%= row["profile"] %>.png" alt="User Image">
+                    <div class="menu-info">
+                    <h4 class="control-sidebar-subheading"><%= row["fullname"] %> </h4>
+                    <p>
+                    <% switch (row["status"].ToString())
+                       {
+                           case "1":
+                               Response.Write("On Duty");
+                               break;
+                           case "0":
+                               Response.Write("Away");
+                               break;
+                           case "2":
+                               Response.Write("On leave");
+                               break;
+                       } %>
+                   </p>
+                 </div>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+      <!-- /.tab-pane -->
+      <% } %>
+    </div>
+  </aside>
+      <!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div>
+
+<div class="modal fade in" id="modal-s" style=" background:transparent; display:block; position:fixed; padding-right: 17px;">
+    <div class="modal-dialog" style=" margin-top:20%">
+    <div class="loader" style="margin:0 auto"></div>
+    </div>
+</div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery 3 -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
+    <script src="dist/js/active.js"></script>
+    <asp:ContentPlaceHolder id="footer" runat="server">
+    </asp:ContentPlaceHolder>
+    <script >
+        $(window).on('load', function () { // makes sure the whole site is loaded
+        $('#modal-s').fadeOut(); // will first fade out the loading animation
+        GetTime();
+        })
+        
+        var submit = false;
+        $('form').submit(function () {
+            if (submit) { return false; }
+            else { submit = true; }
+        });
+
+
+        function GetTime() {
+            CallServer(null, null);
+        }
+
+        function ReceiveServerData(rValue) {
+            objId = document.getElementById("clock");
+            objId.innerHTML = rValue;
+            setTimeout("GetTime()", 1000);
+        }
+
+
+        function UserInfo() {
+
+
+        }
+
+        function asd(evs) {
+            if (evs.checked) {
+                $("[id$=servertimer]").show();
+                $("[id$=logotime]").hide();
+
+            } else {
+
+                $("[id$=servertimer]").hide();
+                $("[id$=logotime]").show();
+            }
+        }
+
+        function button5() {
+
+            var empid = $("[id$=lbempid]").val();
+            console.log(empid);
+
+            $.getJSON("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=10.342762&longitude=123.919051&localityLanguage=en")
+                .success(function (data) {
+                    console.log(data.city);
+                    console.log(data.locality);
+                })
+                .error(function (error) {
+                    $("#output").html("An error occurred.");
+                })
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;",
+                url: "Home.aspx/deviceinformer",
+                data: JSON.stringify({ emp: empid }),
+                dataType: "json",
+                success: function(r) {
+                    console.log("aaaaa");
+                    var array = r.d.toString().split('~');
+                    console.log(r.d);
+                    getLocation();
+                    $("[id$=browsernamee]").val(array[0].toString());
+                    $("[id$=versione]").val(array[1].toString());
+                    $("[id$=platforme]").val(array[2].toString());
+                    $("[id$=devicee]").val(array[3].toString());
+                    var tiem = document.getElementById("clock");
+                    $("[id$=timee]").val(tiem.innerHTML);
+                    $("[id$=hdpassword]").val(array[5].toString());
+                    $("#Div1").show();
+                },
+                failure: function(r) {
+                    console.log("failure: " + r);
+                    alert("Incorrect Password.");
+                },
+                error: function(r) {
+                    console.log("error: " + r);
+                    alert(r.responseText);
+                }
+            });
+
+        }
+        function button3() {
+            $("#Div1").hide();
+
+            $("#Div2").hide();
+            var tBody = $("#tblItems > TBODY")[0];
+            var new_tbody = document.createElement('tbody');
+            tBody.parentNode.replaceChild(new_tbody, tBody);
+        }
+
+    </script>
+
+  
+    <script type="text/javascript">
+
+        var y = $("[id$=longitudee]");
+        var z = $("[id$=latitudee]");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                z.val("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            z.val(position.coords.latitude);
+            y.val(position.coords.longitude);
+        }
+
+        function onconfirm() {
+            if ($("[id$=txtpassworder]").val() == $("[id$=hdpassword]").val()) {
+
+                var empid = $("[id$=lbempid]").val();
+                console.log(empid);
+                var times = $("[id$=timee]").val();
+                console.log(times);
+                var browserite = $("[id$=browsernamee]").val() + " " + $("[id$=versione]").val() + " " + $("[id$=platforme]").val();
+                var devicete = $("[id$=devicee]").val();
+                var latitudete = $("[id$=latitudee]").val();
+                var longitudete = $("[id$=longitudee]").val();
+                var cityy = "";
+                $.getJSON("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=10.342762&longitude=123.919051&localityLanguage=en")
+                .success(function (response) {
+                    console.log(response.city);
+                    console.log(response.locality);
+
+                    cityy = "" + response.locality + "" + response.city;
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json;",
+                        url: "Home.aspx/savelogger",
+                        data: JSON.stringify({ emp: empid, time: times, browser: browserite, device: devicete, latitude: latitudete, longitude: longitudete, city: cityy }),
+                        dataType: "json",
+                        success: function (r) {
+                            $("#Div1").hide();
+                        },
+                        failure: function (r) {
+                            console.log("failure: " + r);
+                        },
+                        error: function (r) {
+                            console.log("error: " + r);
+                            alert(r.responseText);
+                        }
+                    });
+                })
+                .error(function (error) {
+                    $("#output").html("An error occurred.");
+                })
+           
+            }
+            else {
+                alert("Incorrect Password.");
+            }
+        }
+
+        function locationer() {
+
+            window.open(
+   'http://maps.google.com/?q=' + z.val() + ',' + y.val() + '',
+  '_blank'
+);
+
+        }
+
+
+        function getlogs() {
+            var empid = $("[id$=lbempid]").val();
+            console.log(empid);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;",
+                url: "Home.aspx/getlogs",
+                data: JSON.stringify({ emp: empid }),
+                dataType: "json",
+                success: function(data) {
+                    var tBody = $("#tblItems > TBODY")[0];
+
+                    if (data.d.length > 0) {
+                        for (var i = 0; i < data.d.length; i++) {
+                            //Add Row.
+                            var row = tBody.insertRow(-1);
+
+                            var cell = $(row.insertCell(-1));
+                            cell.html("<label class='txtdate'>" + data.d[i].dates + "</label>");
+                        }
+                    }
+
+                    $("#Div2").show();
+
+                },
+                failure: function(r) {
+                    console.log("failure: " + r);
+                },
+                error: function(r) {
+                    console.log("error: " + r);
+                    alert(r.responseText);
+                }
+            });
+        }
+      
+
+  </script>
+  <script>
+    
+  </script>
+    </form>
+</body>
+</html>

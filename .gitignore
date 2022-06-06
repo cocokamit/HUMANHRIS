@@ -1,0 +1,38 @@
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@cocokamit
+cocokamit /
+Portfolio-React
+Public
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+
+    Settings
+
+Portfolio-React/.gitignore
+ 
+ 
+23 lines (18 sloc) 310 Bytes
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/App_Code
+/Bin
+
+# testing
+/files
+/Excel
+# production
+/Human
+/build

@@ -1,0 +1,953 @@
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[CashAdvance]    Script Date: 03/16/2020 09:06:15 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CashAdvance]') AND type in (N'U'))
+DROP TABLE [dbo].[CashAdvance]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[CashAdvance]    Script Date: 03/16/2020 09:06:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[CashAdvance](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[empid] [int] NULL,
+	[department] [varchar](max) NULL,
+	[daterequested] [datetime] NULL,
+	[dateneeded] [datetime] NULL,
+	[amountreq] [varchar](50) NULL,
+	[amountword] [varchar](max) NULL,
+	[duration] [varchar](50) NULL,
+	[chargeto] [varchar](max) NULL,
+	[purpose] [varchar](max) NULL,
+	[statusCA] [varchar](50) NULL,
+	[statusliquid] [varchar](50) NULL,
+	[requestingID] [int] NULL,
+	[deptheadID] [int] NULL,
+	[receivingID] [int] NULL,
+	[requestingSign] [varchar](50) NULL,
+	[deptheadSign] [varchar](50) NULL,
+	[receivingSign] [varchar](50) NULL,
+	[mark] [int] NULL,
+	[datefiled] [datetime] NULL,
+	[tamount] [decimal](18, 0) NULL,
+	[tvat] [decimal](18, 0) NULL,
+	[ttotal] [decimal](18, 0) NULL,
+	[gtotal] [decimal](18, 0) NULL,
+	[catotal] [decimal](18, 0) NULL,
+	[cafnum] [int] NULL,
+	[status] [varchar](50) NULL,
+	[arnum] [varchar](50) NULL,
+ CONSTRAINT [PK_CashAdvance] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[CashAdvanceItems]    Script Date: 03/16/2020 09:06:48 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CashAdvanceItems]') AND type in (N'U'))
+DROP TABLE [dbo].[CashAdvanceItems]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[CashAdvanceItems]    Script Date: 03/16/2020 09:06:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[CashAdvanceItems](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[date] [datetime] NULL,
+	[glnumber] [varchar](50) NULL,
+	[reference] [varchar](max) NULL,
+	[supplier] [varchar](max) NULL,
+	[description] [varchar](max) NULL,
+	[amount] [decimal](18, 0) NULL,
+	[vat] [decimal](18, 0) NULL,
+	[total] [decimal](18, 0) NULL,
+	[remarks] [varchar](max) NULL,
+	[costcenter] [varchar](max) NULL,
+	[caid] [int] NULL,
+ CONSTRAINT [PK_CashAdvanceItems] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[CostCenters]    Script Date: 03/16/2020 09:06:58 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CostCenters]') AND type in (N'U'))
+DROP TABLE [dbo].[CostCenters]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[CostCenters]    Script Date: 03/16/2020 09:06:58 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[CostCenters](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[CostCenter] [varchar](max) NULL,
+ CONSTRAINT [PK_CostCenters] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[ExpReimbursement]    Script Date: 03/16/2020 09:07:09 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ExpReimbursement]') AND type in (N'U'))
+DROP TABLE [dbo].[ExpReimbursement]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[ExpReimbursement]    Script Date: 03/16/2020 09:07:09 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[ExpReimbursement](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[EmpID] [int] NULL,
+	[ManagerID] [int] NULL,
+	[DateFrom] [datetime] NULL,
+	[DateTo] [datetime] NULL,
+	[BusinessPurpose] [varchar](max) NULL,
+	[Subtotal] [decimal](18, 0) NULL,
+	[LessCashAdvance] [decimal](18, 0) NULL,
+	[TotalReimbursement] [decimal](18, 0) NULL,
+	[EmployeeSign] [datetime] NULL,
+	[ManagerSign] [varchar](50) NULL,
+	[mark] [int] NULL,
+ CONSTRAINT [PK_ExpReimbursement] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[ExpReimItemExpense]    Script Date: 03/16/2020 09:07:17 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ExpReimItemExpense]') AND type in (N'U'))
+DROP TABLE [dbo].[ExpReimItemExpense]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[ExpReimItemExpense]    Script Date: 03/16/2020 09:07:17 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[ExpReimItemExpense](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[ExReimID] [int] NULL,
+	[Date] [datetime] NULL,
+	[Description] [varchar](max) NULL,
+	[Category] [varchar](50) NULL,
+	[Cost] [decimal](18, 0) NULL,
+ CONSTRAINT [PK_ExpReimItemExpense] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[FATForm]    Script Date: 03/16/2020 09:07:24 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FATForm]') AND type in (N'U'))
+DROP TABLE [dbo].[FATForm]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[FATForm]    Script Date: 03/16/2020 09:07:25 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[FATForm](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[ECUID] [varchar](50) NULL,
+	[Make] [varchar](50) NULL,
+	[Model] [varchar](50) NULL,
+	[SerialNumber] [varchar](50) NULL,
+	[Description] [varchar](max) NULL,
+	[ReasonForTransfer] [varchar](max) NULL,
+	[EmployeeFromId] [int] NULL,
+	[EmployeeToId] [int] NULL,
+	[reqPosition] [varchar](max) NULL,
+	[hdPosition] [varchar](max) NULL,
+	[RequestID] [int] NULL,
+	[HeadDirectorID] [int] NULL,
+	[DateTime] [varchar](50) NULL,
+	[OrgSign] [varchar](50) NULL,
+	[ReceiveSign] [varchar](50) NULL,
+	[RequestSign] [varchar](50) NULL,
+	[HeadDirectorSign] [varchar](50) NULL,
+	[mark] [int] NULL,
+	[reqdate] [varchar](50) NULL,
+	[hddate] [varchar](50) NULL,
+	[datetransfrom] [varchar](50) NULL,
+	[datetransto] [varchar](50) NULL,
+ CONSTRAINT [PK_FATForm] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[FATPeople]    Script Date: 03/16/2020 09:07:33 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FATPeople]') AND type in (N'U'))
+DROP TABLE [dbo].[FATPeople]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[FATPeople]    Script Date: 03/16/2020 09:07:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[FATPeople](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[Date] [datetime] NULL,
+	[Position] [varchar](max) NULL,
+	[Type] [varchar](50) NULL,
+	[empid] [int] NULL,
+	[nor] [varchar](50) NULL,
+ CONSTRAINT [PK_FATPeople] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[FromApprovers]    Script Date: 03/16/2020 09:07:45 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FromApprovers]') AND type in (N'U'))
+DROP TABLE [dbo].[FromApprovers]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[FromApprovers]    Script Date: 03/16/2020 09:07:45 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[FromApprovers](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[empid] [int] NULL,
+	[positionId] [int] NULL,
+	[approvertype] [varchar](50) NULL,
+ CONSTRAINT [PK_FromApprovers] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[GeneralLedgers]    Script Date: 03/16/2020 09:07:54 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GeneralLedgers]') AND type in (N'U'))
+DROP TABLE [dbo].[GeneralLedgers]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[GeneralLedgers]    Script Date: 03/16/2020 09:07:54 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[GeneralLedgers](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[GLNumber] [varchar](50) NULL,
+	[GLName] [varchar](50) NULL,
+ CONSTRAINT [PK_GeneralLedgers] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[OnBoardingChklist]    Script Date: 03/16/2020 09:08:46 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OnBoardingChklist]') AND type in (N'U'))
+DROP TABLE [dbo].[OnBoardingChklist]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[OnBoardingChklist]    Script Date: 03/16/2020 09:08:46 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[OnBoardingChklist](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[empid] [int] NULL,
+	[approverId] [int] NULL,
+	[approverSign] [varchar](50) NULL,
+	[chklist] [varchar](max) NULL,
+	[status] [int] NULL,
+	[datefiled] [datetime] NULL,
+	[mark] [int] NULL,
+	[remarks] [varchar](max) NULL,
+ CONSTRAINT [PK_OnBoardingChklist] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[OnBoardingItems]    Script Date: 03/16/2020 09:08:57 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OnBoardingItems]') AND type in (N'U'))
+DROP TABLE [dbo].[OnBoardingItems]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[OnBoardingItems]    Script Date: 03/16/2020 09:08:58 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[OnBoardingItems](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[enum] [varchar](max) NULL,
+	[status] [varchar](max) NULL,
+	[daterec] [datetime] NULL,
+	[onboardid] [int] NULL,
+ CONSTRAINT [PK_OnBoardingItems] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[RequestPayment]    Script Date: 03/16/2020 09:09:13 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RequestPayment]') AND type in (N'U'))
+DROP TABLE [dbo].[RequestPayment]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[RequestPayment]    Script Date: 03/16/2020 09:09:13 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[RequestPayment](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[empid] [int] NULL,
+	[DateRequested] [datetime] NULL,
+	[DateNeeded] [datetime] NULL,
+	[AmountinWords] [varchar](max) NULL,
+	[AmountinFigures] [varchar](50) NULL,
+	[PaymentFor] [varchar](max) NULL,
+	[GrandTotal] [varchar](50) NULL,
+	[AccNameCharged] [varchar](50) NULL,
+	[CostCenterCharged] [varchar](50) NULL,
+	[ManagerSign] [varchar](50) NULL,
+	[DirectorSign] [varchar](50) NULL,
+	[managerID] [int] NULL,
+	[directorID] [int] NULL,
+	[mark] [int] NULL,
+	[remark] [varchar](max) NULL,
+	[AccCodeCharged] [varchar](50) NULL,
+ CONSTRAINT [PK_RequestPayment] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[RequestPaymentItems]    Script Date: 03/16/2020 09:09:31 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RequestPaymentItems]') AND type in (N'U'))
+DROP TABLE [dbo].[RequestPaymentItems]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[RequestPaymentItems]    Script Date: 03/16/2020 09:09:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[RequestPaymentItems](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[requestId] [int] NULL,
+	[glnumber] [varchar](50) NULL,
+	[glname] [varchar](max) NULL,
+	[description] [varchar](max) NULL,
+	[amount] [varchar](50) NULL,
+	[vat] [varchar](50) NULL,
+	[ewt] [varchar](50) NULL,
+	[total] [varchar](50) NULL,
+ CONSTRAINT [PK_RequestPaymentItems] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[SupplierAccreditation]    Script Date: 03/16/2020 09:09:43 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SupplierAccreditation]') AND type in (N'U'))
+DROP TABLE [dbo].[SupplierAccreditation]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[SupplierAccreditation]    Script Date: 03/16/2020 09:09:43 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[SupplierAccreditation](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Date] [datetime] NULL,
+	[PreparerID] [int] NULL,
+	[CompanyName] [varchar](50) NULL,
+	[TradeName] [varchar](50) NULL,
+	[BusinessAddress] [varchar](max) NULL,
+	[DeliveryAddress] [varchar](max) NULL,
+	[BIRNo] [varchar](50) NULL,
+	[BusinessNature] [varchar](50) NULL,
+	[TelNo] [varchar](50) NULL,
+	[WebEmail] [varchar](50) NULL,
+	[Description] [varchar](50) NULL,
+	[Quotation] [varchar](50) NULL,
+	[QuoteContact] [varchar](50) NULL,
+	[Deliveries] [varchar](50) NULL,
+	[DelContact] [varchar](50) NULL,
+	[Complaints] [varchar](50) NULL,
+	[CompContact] [varchar](50) NULL,
+	[Finance] [varchar](50) NULL,
+	[FinContact] [varchar](50) NULL,
+	[Others] [varchar](50) NULL,
+	[OtherContact] [varchar](50) NULL,
+	[TermPayment] [int] NULL,
+	[TermDiscount] [varchar](50) NULL,
+	[TermOthers] [varchar](50) NULL,
+	[AccreditationReq] [varchar](50) NULL,
+	[AdditionalReq] [varchar](50) NULL,
+	[ApproverId] [int] NULL,
+	[ApproverSign] [varchar](50) NULL,
+	[mark] [int] NULL,
+ CONSTRAINT [PK_SupplierAccreditation] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[SupplierAccreditationPersonnel]    Script Date: 03/16/2020 09:09:51 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SupplierAccreditationPersonnel]') AND type in (N'U'))
+DROP TABLE [dbo].[SupplierAccreditationPersonnel]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[SupplierAccreditationPersonnel]    Script Date: 03/16/2020 09:09:51 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[SupplierAccreditationPersonnel](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[SAFormid] [int] NULL,
+	[Title] [varchar](50) NULL,
+	[Name] [varchar](50) NULL,
+	[Address] [varchar](50) NULL,
+	[ContactNo] [varchar](50) NULL,
+	[Nationality] [varchar](50) NULL,
+ CONSTRAINT [PK_SupplierAccreditationPersonnel] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[TenantHandover]    Script Date: 03/16/2020 09:10:07 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TenantHandover]') AND type in (N'U'))
+DROP TABLE [dbo].[TenantHandover]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[TenantHandover]    Script Date: 03/16/2020 09:10:07 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TenantHandover](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[PreparerId] [int] NULL,
+	[date] [datetime] NULL,
+	[CompanyName] [varchar](50) NULL,
+	[Bldg] [varchar](50) NULL,
+	[Floor] [varchar](50) NULL,
+	[Area] [varchar](50) NULL,
+	[Checks] [varchar](max) NULL,
+	[Comments] [varchar](max) NULL,
+	[RadioVal] [varchar](50) NULL,
+	[LeasingSign] [varchar](50) NULL,
+	[LeasingMngrID] [int] NULL,
+	[FinanceSign] [varchar](50) NULL,
+	[FinMngrID] [int] NULL,
+	[PropertySign] [varchar](50) NULL,
+	[PropMngrID] [int] NULL,
+	[others1] [varchar](max) NULL,
+	[others2] [varchar](max) NULL,
+	[others3] [varchar](max) NULL,
+	[AHC] [varchar](max) NULL,
+	[mark] [int] NULL,
+ CONSTRAINT [PK_TenantHandover] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[TenantTurnover]    Script Date: 03/16/2020 09:10:18 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TenantTurnover]') AND type in (N'U'))
+DROP TABLE [dbo].[TenantTurnover]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[TenantTurnover]    Script Date: 03/16/2020 09:10:18 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TenantTurnover](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[PreparerId] [int] NULL,
+	[Tenant] [varchar](50) NULL,
+	[Date] [datetime] NULL,
+	[Location] [varchar](50) NULL,
+	[Floor] [varchar](50) NULL,
+	[MoveinQty] [varchar](max) NULL,
+	[MoveinRemark] [varchar](max) NULL,
+	[MoveoutQty] [varchar](max) NULL,
+	[MoveoutRemark] [varchar](max) NULL,
+	[Accepted] [varchar](max) NULL,
+	[FReplacement] [varchar](max) NULL,
+	[ChargedTenant] [varchar](max) NULL,
+ CONSTRAINT [PK_TenantTurnover] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[THandoverFiles]    Script Date: 03/16/2020 09:10:28 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[THandoverFiles]') AND type in (N'U'))
+DROP TABLE [dbo].[THandoverFiles]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[THandoverFiles]    Script Date: 03/16/2020 09:10:28 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[THandoverFiles](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[date] [datetime] NULL,
+	[th_id] [int] NULL,
+	[location] [varchar](max) NULL,
+	[filename] [varchar](max) NULL,
+	[description] [varchar](max) NULL,
+	[status] [varchar](max) NULL,
+	[contenttype] [varchar](max) NULL,
+	[trn_file_id] [int] NULL,
+	[filecode] [int] NULL,
+	[filename2] [varchar](50) NULL,
+ CONSTRAINT [PK_THandoverFiles] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[UserAccessForm]    Script Date: 03/16/2020 09:10:50 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserAccessForm]') AND type in (N'U'))
+DROP TABLE [dbo].[UserAccessForm]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[UserAccessForm]    Script Date: 03/16/2020 09:10:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[UserAccessForm](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[emp_id] [varchar](50) NULL,
+	[Position] [varchar](max) NULL,
+	[DateHired] [varchar](50) NULL,
+	[Department] [varchar](max) NULL,
+	[Email] [varchar](50) NULL,
+	[Username] [varchar](50) NULL,
+	[UserRole] [varchar](50) NULL,
+	[PreparerId] [int] NULL,
+	[Date] [datetime] NULL,
+	[EndorseId] [int] NULL,
+	[ApproverId] [int] NULL,
+	[ApproverSign] [varchar](50) NULL,
+	[mark] [int] NULL,
+	[Addition] [varchar](max) NULL,
+	[EffectiveDate] [datetime] NULL,
+ CONSTRAINT [PK_UserAccessForm] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[VendorAccount]    Script Date: 03/16/2020 09:10:58 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VendorAccount]') AND type in (N'U'))
+DROP TABLE [dbo].[VendorAccount]
+GO
+
+USE [hris_lhpi]
+GO
+
+/****** Object:  Table [dbo].[VendorAccount]    Script Date: 03/16/2020 09:10:58 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[VendorAccount](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[vcode] [varchar](max) NULL,
+	[vname] [varchar](max) NULL,
+ CONSTRAINT [PK_VendorAccount] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+55	Fixed Asset Transfer	fatf	FixedAssetTrans	fa fa-file-text	-	0	2
+56	Fixed Asset Transfer	fatfapproval	FixedAssetTransApproval		- 	72	1
+							
+							
+59	Request for Payment	rfpayment	content.Forms.RFPayment	fa fa-file-text	-	0	1
+60	Request Payment	rfpayApproval	content.Forms.RequestPaymentApproval		-	72	1
+							
+							
+							
+							
+65	User Access	useraccessform	Forms.UserAccessForm.aspx	fa fa-file-text	-	0	2
+66	User Access	useraccapproval	Forms.UserAccessFormApproval.aspx		-	72	1
+67	Forms	dashform	Forms.DashForms.aspx	fa fa-file-text	-	0	2
+							
+69	BEO	beo	Forms.BEO.aspx	fa fa-file-text	-	0	2
+							
+71	Letter of Disposal	letterdisposal	Forms.LetterOfDisposal	fa fa-file-text	-	0	2
+72	Form Approvals	-	-	fa fa-file-text	-	0	1
+73	Cash Advance 	cladvanceApp	form.cashadvance		-	72	1
+75	On Boarding	onboardingapp	form.onboardingchklist	fa fa-file-text	-	72	1
+
